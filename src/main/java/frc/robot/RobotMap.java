@@ -29,7 +29,8 @@ public final class RobotMap {
 	public static final int RIGHT_MOTOR1 = 1;
 	public static final int RIGHT_MOTOR2 = 3;
 	public static final int SAXIS = 3;
-	public static final int JOYSTICK_BUTTON2 = 2;
+    public static final int JOYSTICK_BUTTON2 = 2;
+    public static final int BIG_ANGLE = 50;
 
 }
 
