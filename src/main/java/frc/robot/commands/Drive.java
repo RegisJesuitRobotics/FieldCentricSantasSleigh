@@ -214,4 +214,22 @@ public class Drive extends Command {
       return 90;
     }
   }
+  
+  public void WendysMethod() {
+    double my_Difference = joystickAngle - gyro;
+    double counterDiff = 360 - joystickAngle + gyro;
+    double dMCD = my_Difference - counterDiff;
+
+    if (dMCD % 360 == 0) {
+      if ((dMCD / 360) % 2 == 0) {
+        // Straight back
+      } else {
+        // Straight forward
+      }
+    } else if ((dMCD < -1 && dMCD > -359) || (dMCD > -1079 && dMCD < -721)) {
+      // Clockwise
+    } else if ((dMCD < 359 && dMCD > 1) || (dMCD < -361 && dMCD > -719)) {
+      // Counter Clockwise
+    }
+  }
 }
