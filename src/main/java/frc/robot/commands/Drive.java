@@ -1,9 +1,4 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+//----------------------------------------------------------------------------//Copyright(c)2019 FIRST.All Rights Reserved.//Open Source Software-may be modified and shared by FRC teams.The code//must be accompanied by the FIRST BSD license file in the root directory of//the project.//----------------------------------------------------------------------------/
 
 package frc.robot.commands;
 
@@ -14,9 +9,8 @@ import frc.robot.Robot;
 // This is a comment from Garrison
 import frc.robot.RobotMap;
 
-/**
- * An example command. You can replace me with your own command.
- */
+/*An example command.You can replace me with your own command.*/
+
 public class Drive extends Command {
   // Joystick Angle Variables
   double[] joystickValues = new double[3];
@@ -39,6 +33,9 @@ public class Drive extends Command {
   double modifier;
   double sPower;
   int direction;
+  double absDistance;
+  double internetDistance;
+  double curveM;
 
   public Drive() {
     requires(Robot.driveTrain);
@@ -63,40 +60,31 @@ public class Drive extends Command {
     // rightSpeed = 0;
     increment = hypotonuse * limiter * flip;
     // modifier = 0;
-    sPower = hypotonuse * sLimiter;
+    sPower = hypotonuse * sLimiter * .6;
     // lukesMethod();
-    
+
     // // Evaluate Variables for Direction---------------------------
 
+    // Nick's Method Calls
+    // if ((joystickAngle - 10) % 360 < gyro && (joystickAngle + 10) % 360 > gyro) {
+    // if (difference > 0) {
+    // modifier = (1 + 2 (difference / RobotMap.BIG_ANGLE));
+    // leftSpeed = -increment;
+    // rightSpeed = modifier increment;
+    // } else if (difference < 0) {
+    // modifier = (1 - 2 (difference / RobotMap.BIG_ANGLE));
+    // leftSpeed = increment;
+    // rightSpeed = -modifier increment;
+    // } else {
+    // leftSpeed = -sPower;
+    // rightSpeed = sPower;
+    // }
+    // } else {
 
-
-
-
-//Nick's Method Calls
-    if ((joystickAngle - 10) % 360 < gyro && (joystickAngle + 10) % 360 > gyro) {
-      if (difference > 0) {
-        modifier = (1 + 2 * (difference / RobotMap.BIG_ANGLE));
-        leftSpeed = -increment;
-        rightSpeed = modifier * increment;
-      } else if (difference < 0) {
-        modifier = (1 - 2 * (difference / RobotMap.BIG_ANGLE));
-        leftSpeed = increment;
-        rightSpeed = -modifier * increment;
-      } else {
-        leftSpeed = -sPower;
-        rightSpeed = sPower;
-      }
-    } else {
-
-
-
-
-
-
-      // leftSpeed = nicksMethod() * .6;
-      // rightSpeed = nicksMethod() * .6;
-      // System.out.println(nicksMethod());
-    }
+    // leftSpeed = nicksMethod() .6;
+    // rightSpeed = nicksMethod() .6;
+    // System.out.println(nicksMethod());
+    // }
     // if (Math.abs(difference) > RobotMap.BIG_ANGLE) {// if there is significant
     // difference
     // if (difference < 0) {// if difference is negative
@@ -117,18 +105,18 @@ public class Drive extends Command {
     // } else if (Math.abs(difference) > 5) {// if there is a little difference
     // if (difference < 0) {// if difference is negative
     // // turn towards negative
-    // modifier = (1 + 2 * (difference / RobotMap.BIG_ANGLE));
+    // modifier = (1 + 2 (difference / RobotMap.BIG_ANGLE));
     // leftSpeed = -increment;
-    // rightSpeed = modifier * increment;
+    // rightSpeed = modifier increment;
     // // SmartDashboard.putString("Direction: ", "Modifier: " + modifier);
     // // SmartDashboard.putString("Direction: ", "Increment: " + increment);
     // // SmartDashboard.putString("Direction: ", "negative");
     // SmartDashboard.putString("Direction: ", "Negative Lil20");
     // } else {// if difference is positive;
     // // turn towards positive.
-    // modifier = (1 - 2 * (difference / RobotMap.BIG_ANGLE));
+    // modifier = (1 - 2 (difference / RobotMap.BIG_ANGLE));
     // leftSpeed = increment;
-    // rightSpeed = -modifier * increment;
+    // rightSpeed = -modifier increment;
     // // SmartDashboard.putString("Direction: ", "Modifier: " + modifier);
     // // SmartDashboard.putString("Direction: ", "Increment: " + increment);
     // // SmartDashboard.putString("Direction: ", "positive" + "gyro" + gyro);
@@ -146,63 +134,93 @@ public class Drive extends Command {
     // Turn/Drive according to evaluated
     // variables------------------------------------------
 
-
-
-    System.out.println("w" + joystickAngle);
-    System.out.println("R" + gyro);
-    double oppositeGyro = (gyro + 180) % 360;
+    // System.out.println("w" + joystickAngle);
+    // System.out.println("R" + gyro);
+    final double oppositeGyro = (gyro + 180) % 360;
     // System.out.println("O " + oppositeGyro + " G " + gyro);
 
-    int direction;
+    final int direction;
 
-    if (joystickAngle <= gyro + 15 && joystickAngle >= gyro - 15) {
-      Robot.driveTrain.moveLeft(0);
-      Robot.driveTrain.moveRight(0);
+    if (joystickAngle <= gyro + 50 && joystickAngle >= gyro - 50) {
+      // // modifier = (1 - 2 * (difference / RobotMap.BIG_ANGLE));
+      // modifier = 0.05;
+      // internetDistance = internetDistance();
+      // absDistance = Math.abs(internetDistance);
+      // curveM = internetDistance * modifier;
+      // if (internetDistance < 0) {
+      // Robot.driveTrain.moveLeft(sPower);
+      // Robot.driveTrain.moveRight(sPower * (1 - absDistance/50));
+      // System.out.println("Left " + internetDistance);
+
+      // } else if (internetDistance > 0) {
+      // Robot.driveTrain.moveLeft(increment);
+      // Robot.driveTrain.moveRight(modifier * increment);
+      // System.out.println("Right " + internetDistance);
+
+      // } else if (internetDistance == 0) {
+      // System.out.println("Straight " + internetDistance);
+      // } else {
+      // System.out.println("Error " + internetDistance);
+      // }
+      modifier = (1 - 2 * (internetDistance() / 50));
+      if (joystickAngle <= gyro + 20 && joystickAngle >= gyro - 20) {
+        Robot.driveTrain.moveLeft(-sPower);
+        Robot.driveTrain.moveRight(sPower);
+        // }
+
+      } else if (joystickAngle <= gyro + 50 && joystickAngle >= joystickAngle - 50) {
+        Robot.driveTrain.moveLeft(-sPower * modifier);
+        Robot.driveTrain.moveRight(sPower);
+      } else {
+        
+        Robot.driveTrain.moveLeft(-sPower);
+        Robot.driveTrain.moveRight(sPower * modifier);
+      }
     } else {
-      Robot.driveTrain.moveLeft(sPower);
-      Robot.driveTrain.moveRight(sPower); 
+      Robot.driveTrain.moveLeft(nicksMethod() * sPower);
+      Robot.driveTrain.moveRight(nicksMethod() * sPower);
     }
 
   }
-//Luke's method calls
+  // Luke's method calls
   // public void lukesMethod() {
-  //   final double difference = joystickAngle - gyro;
-  //   final double counterDiff = 360 - Math.abs(difference);
-  //   SmartDashboard.putNumber("power ", sPower);
-  //   if (difference < 0) {
-  //     if (Math.abs(difference) > Math.abs(counterDiff)) {
-  //       Robot.driveTrain.moveLeft(sPower);
-  //       Robot.driveTrain.moveRight(sPower);
-  //       SmartDashboard.putString("Turn Direction ", "1");
-  //     } else if (Math.abs(difference) < Math.abs(counterDiff)) {
-  //       Robot.driveTrain.moveRight(-sPower);
-  //       Robot.driveTrain.moveLeft(-sPower);
-  //       SmartDashboard.putString("Turn Direction ", "2");
-  //     } else {
-  //       Robot.driveTrain.moveLeft(-sPower);
-  //       Robot.driveTrain.moveRight(sPower);
-  //       SmartDashboard.putString("Turn Direction ", "3");
-  //     }
-  //   } else if (difference > 0) {
-  //     if (Math.abs(difference) < Math.abs(counterDiff)) {
-  //       Robot.driveTrain.moveLeft(sPower);
-  //       Robot.driveTrain.moveRight(sPower);
-  //       SmartDashboard.putString("Turn Direction ", "4");
-  //     } else if (Math.abs(difference) > Math.abs(counterDiff)) {
-  //       Robot.driveTrain.moveRight(-sPower);
-  //       Robot.driveTrain.moveLeft(-sPower);
-  //       SmartDashboard.putString("Turn Direction ", "5");
-  //     } else {
-  //       Robot.driveTrain.moveLeft(-sPower);
-  //       Robot.driveTrain.moveRight(sPower);
-  //       SmartDashboard.putString("Turn Direction ", "6");
-  //     }
-  //   }
-  //   else {
-  //     Robot.driveTrain.moveLeft(-sPower);
-  //     Robot.driveTrain.moveRight(sPower);
+  // final double difference = joystickAngle - gyro;
+  // final double counterDiff = 360 - Math.abs(difference);
+  // SmartDashboard.putNumber("power ", sPower);
+  // if (difference < 0) {
+  // if (Math.abs(difference) > Math.abs(counterDiff)) {
+  // Robot.driveTrain.moveLeft(sPower);
+  // Robot.driveTrain.moveRight(sPower);
+  // SmartDashboard.putString("Turn Direction ", "1");
+  // } else if (Math.abs(difference) < Math.abs(counterDiff)) {
+  // Robot.driveTrain.moveRight(-sPower);
+  // Robot.driveTrain.moveLeft(-sPower);
+  // SmartDashboard.putString("Turn Direction ", "2");
+  // } else {
+  // Robot.driveTrain.moveLeft(-sPower);
+  // Robot.driveTrain.moveRight(sPower);
+  // SmartDashboard.putString("Turn Direction ", "3");
+  // }
+  // } else if (difference > 0) {
+  // if (Math.abs(difference) < Math.abs(counterDiff)) {
+  // Robot.driveTrain.moveLeft(sPower);
+  // Robot.driveTrain.moveRight(sPower);
+  // SmartDashboard.putString("Turn Direction ", "4");
+  // } else if (Math.abs(difference) > Math.abs(counterDiff)) {
+  // Robot.driveTrain.moveRight(-sPower);
+  // Robot.driveTrain.moveLeft(-sPower);
+  // SmartDashboard.putString("Turn Direction ", "5");
+  // } else {
+  // Robot.driveTrain.moveLeft(-sPower);
+  // Robot.driveTrain.moveRight(sPower);
+  // SmartDashboard.putString("Turn Direction ", "6");
+  // }
+  // }
+  // else {
+  // Robot.driveTrain.moveLeft(-sPower);
+  // Robot.driveTrain.moveRight(sPower);
 
-  //   }
+  // }
   // }
 
   {
@@ -213,9 +231,9 @@ public class Drive extends Command {
     int direction = 0;
     findGyro();
     findAngle();
-    if ((gyro + 180) % 360 < joystickAngle) {
+    if (gyro > joystickAngle) {
       direction = -1;
-    } else if ((gyro + 180) % 360 > joystickAngle) {
+    } else if (gyro < joystickAngle) {
       direction = 1;
     } else {
       direction = 0;
@@ -223,10 +241,49 @@ public class Drive extends Command {
     return direction;
   }
 
+  public double internetDistance() {
+    findGyro();
+    findAngle();
+    final double proxyDistance = Math.abs(joystickAngle - gyro) % 360;
+    double distance = proxyDistance > 180 ? 360 - proxyDistance : proxyDistance;
+    final int sign = (joystickAngle - gyro >= 0 && joystickAngle - gyro <= 180)
+        || (joystickAngle - gyro <= -180 && joystickAngle - gyro > - -360) ? 1 : -1;
+    distance *= sign;
+    // System.out.println("Joystick: " + joystickAngle + "\nGyro: " + gyro +
+    // "\nDistance: " + distance + "\nSign: " + sign);
+    // return distance == 0 ? 0 : sign;
+    return distance;
+  }
+
+  public int WendysMethod() {
+    final double my_Difference = joystickAngle - gyro;
+    final double counterDiff = 360 - joystickAngle + gyro;
+    final double dMCD = my_Difference - counterDiff;
+    final int direction = 0;
+    final double straightZone = 5;
+    // if (dMCD % 360 == 0) {
+    // if ((dMCD / 360) % 2 == 0) {
+    // return(1);//Backwards, default clockwise.
+    // } else {
+    // return(0);// Straight forward
+    // }
+    // } else
+    // System.out.println(dMCD);
+    if ((dMCD <= (0 /*- straightZone /*-5*/) && dMCD > (-360 + straightZone /*-355*/))
+        || (dMCD > (-1080 + straightZone /*-1075*/) && dMCD <= (-720 /*- straightZone /*-725*/))) {
+      return (1);// Clockwise
+    } else if ((dMCD < (360 - straightZone /* 355 */) && dMCD >= (0 /* + straightZone /*5 */)
+        || (dMCD < (-360 - straightZone /*-365*/) && dMCD >= (-720 /* + straightZone /*-715 */)))) {
+      return (-1);// Counter Clockwise
+    } else {
+      return (0);// Straight/Backwards/Error
+    }
+  }
+
   public void setHypotonuse() {
     joystickValues = Robot.m_oi.getAxiis();
     hypotonuse = Math.sqrt(Math.pow(joystickValues[0], 2) + Math.pow(joystickValues[1], 2));
-    // maxHypotenuse = 1/(Math.abs(Math.cos(joystickAngle * Math.PI / 180)) * 180 /
+    // maxHypotenuse = 1/(Math.abs(Math.cos(joystickAngle Math.PI / 180)) 180 /
     // Math.PI );
     // hypotonuse = hypotonuse/maxHypotenuse;
     if (hypotonuse < 0.3) {// deadZone
@@ -331,35 +388,21 @@ public class Drive extends Command {
   // return Math.abs((360 - joystickAngle) + gyro);
   // }
 
-  /*
-   * public void WendysMethod() { double my_Difference = joystickAngle - gyro;
-   * double counterDiff = 360 - joystickAngle + gyro; double dMCD = my_Difference
-   * - counterDiff;
-   * 
-   * if (dMCD % 360 == 0) { if ((dMCD / 360) % 2 == 0) {
-   * Robot.driveTrain.moveLeft(sPower); // Straight back } else {
-   * Robot.driveTrain.moveRight(sPower); Robot.driveTrain.moveLeft(-sPower); //
-   * Straight forward } } else if ((dMCD < -1 && dMCD > -359) || (dMCD > -1079 &&
-   * dMCD < -721)) { Robot.driveTrain.moveRight(sPower);
-   * Robot.driveTrain.moveLeft(sPower); // Clockwise } else if ((dMCD < 359 &&
-   * dMCD > 1) || (dMCD < -361 && dMCD > -719)) {
-   * Robot.driveTrain.moveRight(-sPower); Robot.driveTrain.moveLeft(-sPower); //
-   * Counter Clockwise } }
-   */
-  /*
-   * public void NewMethod() { final double counterDiff = 360 -
-   * Math.abs(difference); if (difference < 0){ if (Math.abs(difference) >
-   * Math.abs(counterDiff )){ Robot.driveTrain.moveLeft(sPower);
-   * Robot.driveTrain.moveRight(sPower); } else if (Math.abs (difference)<
-   * Math.abs (counterDiff){ Robot.driveTrain.moveRight(sPower);
-   * Robot.driveTrain.moveLeft(sPower); } else { Robot.driveTrain.moveLeft
-   * (sPower); Robot.driveTrain.moveRight(sPower); } } else if (difference > 0){
-   * if (Math.abs (difference)<Math.abs (counterDiff)) {
-   * Robot.driveTrain.moveLeft(sPower); Robot.driveTrain.moveRight(sPower); } else
-   * if (Math.abs (difference)>Math.abs (counterDiff)){
-   * Robot.driveTrain.moveRight(sPower); Robot.driveTrain.moveLeft(sPower); } else
-   * { Robot.driveTrain.moveLeft(sPower); Robot.driveTrain.moveRight(sPower); } }
-   * } else { //Straight }
-   */
+  // public void NewMethod() { final double counterDiff = 360 -
+  // Math.abs(difference); if (difference < 0){ if (Math.abs(difference) >
+  // Math.abs(counterDiff )){ Robot.driveTrain.moveLeft(sPower);
+  // Robot.driveTrain.moveRight(sPower); } else if (Math.abs (difference)<
+  // Math.abs (counterDiff){ Robot.driveTrain.moveRight(sPower);
+  // Robot.driveTrain.moveLeft(sPower); } else { Robot.driveTrain.moveLeft
+  // (sPower); Robot.driveTrain.moveRight(sPower); } } else if (difference > 0){
+  // if (Math.abs (difference)<Math.abs (counterDiff)) {
+  // Robot.driveTrain.moveLeft(sPower); Robot.driveTrain.moveRight(sPower); } else
+  // if (Math.abs (difference)>Math.abs (counterDiff)){
+  // Robot.driveTrain.moveRight(sPower); Robot.driveTrain.moveLeft(sPower); } else
+  // { Robot.driveTrain.moveLeft(sPower); Robot.driveTrain.moveRight(sPower); } }
+  // }else
+
+  // { //Straight
+  // }
 
 }
