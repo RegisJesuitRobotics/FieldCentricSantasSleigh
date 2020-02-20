@@ -141,7 +141,8 @@ public class Drive extends Command {
 
     final int direction;
 
-    if (joystickAngle <= gyro + 50 && joystickAngle >= gyro - 50 && false) {
+    if (joystickAngle <= gyro + 50 && joystickAngle >= gyro - 50 && false
+  ) {
       // // modifier = (1 - 2 * (difference / RobotMap.BIG_ANGLE));
       // modifier = 0.05;
       // internetDistance = internetDistance();
@@ -182,6 +183,16 @@ public class Drive extends Command {
     }
 
   }
+
+
+ public int Herpes(){
+  if(gyro>joystickAngle){
+  
+  }
+ }
+
+
+
   // Luke's method calls
   // public void lukesMethod() {
   // final double difference = joystickAngle - gyro;
