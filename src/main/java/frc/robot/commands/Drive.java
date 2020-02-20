@@ -141,7 +141,7 @@ public class Drive extends Command {
 
     final int direction;
 
-    if (joystickAngle <= gyro + 50 && joystickAngle >= gyro - 50) {
+    if (joystickAngle <= gyro + 50 && joystickAngle >= gyro - 50 && false) {
       // // modifier = (1 - 2 * (difference / RobotMap.BIG_ANGLE));
       // modifier = 0.05;
       // internetDistance = internetDistance();
