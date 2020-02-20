@@ -178,16 +178,26 @@ public class Drive extends Command {
         Robot.driveTrain.moveRight(sPower * modifier);
       }
     } else {
-      Robot.driveTrain.moveLeft(nicksMethod() * sPower);
-      Robot.driveTrain.moveRight(nicksMethod() * sPower);
+      Robot.driveTrain.moveLeft(herpes() * sPower);
+      Robot.driveTrain.moveRight(herpes() * sPower);
     }
 
   }
 
 
- public int Herpes(){
+ public int herpes(){
   if(gyro>joystickAngle){
-  
+    if(gyro-joystickAngle<180){
+      return -1;
+    } else{
+      return 1;
+    }
+  } else{
+    if(joystickAngle-gyro<180){
+      return -1;
+    }else{
+      return 1;
+    }
   }
  }
 
