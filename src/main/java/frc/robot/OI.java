@@ -50,7 +50,7 @@ public class OI {
   // button.whenReleased(new ExampleCommand());
   
     Joystick joystick = new Joystick(RobotMap.JOYSTICK);
-    Button button1 = new JoystickButton(joystick, RobotMap.JOYSTICK_BUTTON1);
+    Button button1 = new JoystickButton(joystick, 3);
     Button button2 = new JoystickButton(joystick, RobotMap.JOYSTICK_BUTTON2);
    // Button button3 = new JoystickButton(joystick, RobotMap.JOYSTICK_BUTTON2);
     //Button button5 = new JoystickButton(joystick, RobotMap.JOYSTICK_BUTTON2);

@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -26,6 +27,8 @@ public class Robot extends TimedRobot {
   public static DriveTrain driveTrain = new DriveTrain();
   public static OI m_oi;
   public static Sensors gyro = new Sensors();
+  
+  public Timer timer = new Timer();
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -36,7 +39,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    gyro.callibrate();
+    gyro.autoCallibrate();
     m_oi = new OI();
     m_chooser.setDefaultOption("Default Auto", new Drive());
     // chooser.addOption("My Auto", new MyAutoCommand());
@@ -108,26 +111,24 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
+    /* This makes sure that the autonomous stops running when
+     teleop starts running. If you want the autonomous to
+     continue until interrupted by another command, remove
+     this line or comment it out.*/
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
   }
 
-  /**
-   * This function is called periodically during operator control.
-   */
+   // This function is called periodically during operator control.
+  
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
   }
 
-  /**
-   * This function is called periodically during test mode.
-   */
+  //This function is called periodically during test mode.
+   
   @Override
   public void testPeriodic() {
   }
